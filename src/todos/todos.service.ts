@@ -9,7 +9,7 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 export class TodosService {
   constructor(
     @InjectRepository(Todo)
-    private todosRepository: Repository<Todo>, 
+    private todosRepository: Repository<Todo>,
   ) {}
 
   async create(createTodoDto: CreateTodoDto): Promise<Todo> {
@@ -31,8 +31,8 @@ export class TodosService {
 
   async update(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
     const todo = await this.findOne(id); 
-    await this.todosRepository.update(id, updateTodoDto); 
-    return this.todosRepository.findOneBy({ id }); 
+    Object.assign(todo, updateTodoDto); 
+    return this.todosRepository.save(todo); 
   }
 
   async remove(id: number): Promise<void> {

@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { TodosModule } from './todos/todos.module';
+import { Todo } from './todos/entities/todo.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { TodosModule } from './todos/todos.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [__dirname + '/**/*.entity{.ts, .js}'],
+        entities: [Todo],
         synchronize: true
       })
     }),
